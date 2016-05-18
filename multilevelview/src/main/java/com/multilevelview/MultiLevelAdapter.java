@@ -15,8 +15,11 @@ public abstract class MultiLevelAdapter extends RecyclerView.Adapter<RecyclerVie
 
     List<RecyclerViewItem> recyclerViewItemList = new ArrayList<>();
 
-    public MultiLevelAdapter(List<RecyclerViewItem> recyclerViewItems){
-        this.recyclerViewItemList = recyclerViewItems;
+    public MultiLevelAdapter(List<?> recyclerViewItems){
+        if(!(recyclerViewItems.get(0) instanceof RecyclerViewItem)){
+            throw new IllegalArgumentException("Please Add Items Of Class extending RecyclerViewItem");
+        }
+        this.recyclerViewItemList = (List<RecyclerViewItem>) recyclerViewItems;
     }
 
     public void setRecyclerViewItemList(List<RecyclerViewItem> recyclerViewItemList) {

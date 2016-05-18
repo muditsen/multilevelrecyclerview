@@ -11,12 +11,15 @@ import com.mulitlevelrecyclerview.R;
 import com.multilevelview.MultiLevelAdapter;
 import com.multilevelview.models.RecyclerViewItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends MultiLevelAdapter {
 
-    public MyAdapter(List<RecyclerViewItem> recyclerViewItems) {
+    List<Item> list = new ArrayList<>();
+    public MyAdapter(List<Item> recyclerViewItems) {
         super(recyclerViewItems);
+        list = recyclerViewItems;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class MyAdapter extends MultiLevelAdapter {
         }else{
             holder.itemView.setBackgroundColor(Color.parseColor("#ffffff"));
         }
-        ((Holder)holder).tvPosition.setText("Position "+position);
+        ((Holder)holder).tvPosition.setText(list.get(position).getText());
     }
 
     public static class Holder extends RecyclerView.ViewHolder{

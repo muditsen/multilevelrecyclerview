@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         multiLevelRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<RecyclerViewItem> itemList = new ArrayList<>();
+        List<Item> itemList = new ArrayList<>();
         for(int i=0;i<10;i++){
             Item item = new Item(1);
             List<RecyclerViewItem> itemList2 = new ArrayList<>();
@@ -48,11 +48,17 @@ public class MainActivity extends AppCompatActivity {
                 List<RecyclerViewItem> itemList3 = new ArrayList<>();
                 for(int k=0;k<3;k++){
                     Item item3 = new Item(3);
+                    item3.setText("XYZ "+k);
+                    item3.setSecondText("xyz "+k);
                     itemList3.add(item3);
                 }
+                item2.setText("PQRST "+j);
+                item2.setSecondText("pqrst "+j);
                 item2.addChildren(itemList3);
                 itemList2.add(item2);
             }
+            item.setText("ABCDE "+i);
+            item.setSecondText("abcde "+i);
             item.addChildren(itemList2);
             itemList.add(item);
         }

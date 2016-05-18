@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/shopclues/temp/MulitLevelRecyclerView/app/build/intermediates/exploded-aar/MulitLevelRecyclerView/multilevelview/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="aecb8043fd2e44ebfaa9c33940e186c0adc40df1">
+        <dex dex="/home/shopclues/temp/MulitLevelRecyclerView/app/build/intermediates/pre-dexed/debug/MulitLevelRecyclerView-multilevelview-unspecified_371f21fbc27819897a16a5b98cba33511afa42d0.jar" />
+    </item>
+
+</items>
