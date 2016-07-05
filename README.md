@@ -17,9 +17,12 @@ allprojects {
     }
 }
 ```
+Note: Do not add allprojects tag in any parent tag.
+<br/>
 
-to app gradle file and in dependencies add
-Note: above do not allprojects tag in any parent tag.
+<br/>
+To app gradle file and in dependencies add
+
 ```
  compile 'muditse.android:multilevelexpandview:1.0'
  ```
