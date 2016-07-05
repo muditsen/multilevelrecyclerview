@@ -6,8 +6,26 @@ This is extension of recycler view to make it behave has expandable list view.
 
 ##Prerequisites
 
+add this 
+```
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url 'https://dl.bintray.com/iammuditsen/maven/'
+        }
+    }
+}
+```
+
+to app gradle file and in dependencies add
+Note: above do not allprojects tag in any parent tag.
+```
+ compile 'muditse.android:multilevelexpandview:1.0'
+ ```
+OR
 You need to include `multilevelview` module into your project after downloading it.
-Jcenter library will be uploaded soon.
+
 
 ##Usage
 ```
