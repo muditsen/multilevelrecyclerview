@@ -125,15 +125,16 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
     public void onItemClick(View view, RecyclerViewItem clickedItem, int position) {
 
         List<RecyclerViewItem> adapterList = mMultiLevelAdapter.getRecyclerViewItemList();
-
-        if(clickedItem.isExpanded()){
-            clickedItem.setExpanded(false);
-            removeAllChildren(clickedItem.getChildren());
-            removePrevItems(adapterList, position, clickedItem.getChildren().size());
-            return;
-        }
+        
         if (accordion && prevClickedPosition != -1) {
 
+            if(clickedItem.isExpanded()){
+                clickedItem.setExpanded(false);
+                removeAllChildren(clickedItem.getChildren());
+                removePrevItems(adapterList, position, clickedItem.getChildren().size());
+                return;
+            }
+            
             int i = getExpandedPosition(clickedItem.getLevel());
 
             int itemsToRemove = getItemsToBeRemoved(clickedItem.getLevel());
