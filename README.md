@@ -79,6 +79,11 @@ multiLevelRecyclerView.setAdapter(myAdapter);
 
 And last your Adapter file must be extending to `MultiLevelAdapter.java`.
 
+Added accordion feature can be enabled by function
+
+```
+multiLevelRecyclerView.setAccordion(true);
+```
 
 Example code is already included.
 
