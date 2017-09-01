@@ -1,12 +1,9 @@
 package com.mulitlevelrecyclerview.example;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,6 +13,7 @@ import com.multilevelview.models.RecyclerViewItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,46 +24,45 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         MultiLevelRecyclerView multiLevelRecyclerView = (MultiLevelRecyclerView) findViewById(R.id.rv_list);
-
         multiLevelRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<Item> itemList = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            Item item = new Item(1);
-            List<RecyclerViewItem> itemList2 = new ArrayList<>();
-            for(int j=0;j<5;j++){
-                Item item2 = new Item(2);
-                List<RecyclerViewItem> itemList3 = new ArrayList<>();
-                for(int k=0;k<3;k++){
-                    Item item3 = new Item(3);
-                    item3.setText("XYZ "+k);
-                    item3.setSecondText("xyz "+k);
-                    itemList3.add(item3);
-                }
-                item2.setText("PQRST "+j);
-                item2.setSecondText("pqrst "+j);
-                item2.addChildren(itemList3);
-                itemList2.add(item2);
-            }
-            item.setText("ABCDE "+i);
-            item.setSecondText("abcde "+i);
-            item.addChildren(itemList2);
-            itemList.add(item);
-        }
-        MyAdapter myAdapter = new MyAdapter(itemList);
+        List<Item> itemList = (List<Item>) recursivePopulateFakeData(0, 12);
+
+        MyAdapter myAdapter = new MyAdapter(this, itemList, multiLevelRecyclerView);
 
         multiLevelRecyclerView.setAdapter(myAdapter);
+        multiLevelRecyclerView.removeItemClickListeners();
+    }
 
+
+    private List<?> recursivePopulateFakeData(int levelNumber, int depth) {
+        List<RecyclerViewItem> itemList = new ArrayList<>();
+
+        String title;
+        switch (levelNumber){
+            case 1:
+                title = "PQRST %d";
+                break;
+            case 2:
+                title = "XYZ %d";
+                break;
+            default:
+                title = "ABCDE %d";
+                break;
+        }
+
+        for (int i = 0; i < depth; i++) {
+            Item item = new Item(levelNumber);
+            item.setText(String.format(Locale.ENGLISH, title, i));
+            item.setSecondText(String.format(Locale.ENGLISH, title.toLowerCase(), i));
+            if(depth % 2 == 0){
+                item.addChildren((List<RecyclerViewItem>) recursivePopulateFakeData(levelNumber + 1, depth/2));
+            }
+            itemList.add(item);
+        }
+
+        return itemList;
     }
 
     @Override

@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/home/shopclues/temp/MulitLevelRecyclerView/app/build/intermediates/res/merged/debug/layout-sw600dp-v13/design_layout_snackbar.xml",
-        "source": "/home/shopclues/temp/MulitLevelRecyclerView/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout-sw600dp/design_layout_snackbar.xml"
+        "merged": "C:\\Users\\Alexa\\AndroidStudioProjects\\multilevelrecyclerview\\app\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
+        "source": "C:\\Users\\Alexa\\.android\\build-cache\\e7f8ffed3f826d3364a553c09963559c689e12b5\\output\\res\\layout-sw600dp\\design_layout_snackbar.xml"
+    },
+    {
+        "merged": "C:\\home\\shopclues\\temp\\MulitLevelRecyclerView\\app\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
+        "source": "C:\\home\\shopclues\\temp\\MulitLevelRecyclerView\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.1.1\\res\\layout-sw600dp\\design_layout_snackbar.xml"
     }
 ]
