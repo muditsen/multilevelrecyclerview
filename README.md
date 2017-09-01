@@ -98,7 +98,7 @@ multiLevelRecyclerView.setAccordion(true);
 
 The `recursivePopulateFakeData()` method adds items to an `ArrayList<>()` which are passed to the adapter and then populated in the `MultiLevelRecyclerView`. This is how the items look like this:
 
-![image1]
+![MultiLevelRecyclerView][image1]
 
 **Important: By default the** `MultiLevelRecyclerView` **sets a click listener on the whole item!**
 If you want different click events in one item e.g.: one click event on the item and one click event on the expand button then add the following line of code:
