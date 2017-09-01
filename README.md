@@ -1,5 +1,5 @@
 # MultiLevel Expandable RecyclerView
-This library is an extension of the `RecyclerView` class behaves like the `ExpandableListView` but with more than just 2-levels.
+This library is an extension of the `RecyclerView` class and behaves like the `ExpandableListView` widget but with more than just 2-levels.
 
 
 ## Prerequisites
@@ -29,7 +29,7 @@ include the `multilevelview` module into your project after downloading it.
 
 
 ## Usage
-Put the following snippet in you layout file:
+Put the following snippet in your layout file:
 ```xml
 <com.multilevelview.MultiLevelRecyclerView
         android:id="@+id/rv_list"
@@ -37,7 +37,7 @@ Put the following snippet in you layout file:
         android:layout_height="match_parent"/>
 ```
 
-And declare your RecyclerView in your Activity's `onCreate()` (or your Fragment's `onCreateView()`) method like this:
+And declare your `MultiLevelRecyclerView` in your Activity's `onCreate()` (or your Fragment's `onCreateView()`) method like this:
 ```java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -96,17 +96,18 @@ The accordion feature can be enabled by adding the following line of code:
 multiLevelRecyclerView.setAccordion(true);
 ```
 
-The `recursivePopulateFakeData()` method adds items to an `ArrayList<>()` which are passed to the adapter and then populated in the `MultiLevelRecyclerView`. This is how the items look like this:
+The `recursivePopulateFakeData()` method adds items to an `ArrayList<>()` which are passed to the adapter and then get populated in the `MultiLevelRecyclerView`. This is how the items look like:
 
 ![MultiLevelRecyclerView][image1]
 
 **Important: By default the** `MultiLevelRecyclerView` **sets a click listener on the whole item!**
-If you want different click events in one item e.g.: one click event on the item and one click event on the expand button then add the following line of code:
+
+If you want different click events on one item e.g.: one click event on the item itself and one click event on the expand button then add the following line of code after declaring your `MultiLevelRecyclerView`:
 ```java
 multiLevelRecyclerView.removeItemClickListeners();
 ```
 
-This removes the click event on the whole item and then you're able to set different click events on your views in the `ViewHolder` in your `MyAdapter.java` file like so:
+This removes the click event on the whole item and then you're able to set different click events on your views in the `ViewHolder` class in your `MyAdapter.java` file like so:
 ```java
 private class Holder extends RecyclerView.ViewHolder {
 
