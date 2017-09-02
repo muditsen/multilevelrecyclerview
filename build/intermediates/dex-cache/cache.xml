@@ -2,11 +2,13 @@
 <items version="2" >
 
     <item
-        jar="/home/shopclues/temp/MulitLevelRecyclerView/app/build/intermediates/exploded-aar/MulitLevelRecyclerView/multilevelview/unspecified/jars/classes.jar"
+        is-multidex="false"
+        jar="C:\Users\Alexa\AndroidStudioProjects\multilevelrecyclerview\multilevelview\build\intermediates\bundles\default\classes.jar"
         jumboMode="false"
-        revision="23.0.2"
-        sha1="aecb8043fd2e44ebfaa9c33940e186c0adc40df1">
-        <dex dex="/home/shopclues/temp/MulitLevelRecyclerView/app/build/intermediates/pre-dexed/debug/MulitLevelRecyclerView-multilevelview-unspecified_371f21fbc27819897a16a5b98cba33511afa42d0.jar" />
+        optimize="true"
+        revision="25.0.0"
+        sha1="486181bb3a8db1ecb431bab3375cf1c37c5d029b">
+        <dex dex="C:\Users\Alexa\AndroidStudioProjects\multilevelrecyclerview\app\build\intermediates\pre-dexed\debug\classes_173fc238d3b0e6f426590ab51ec73f2c3ecae72d.jar" />
     </item>
 
 </items>

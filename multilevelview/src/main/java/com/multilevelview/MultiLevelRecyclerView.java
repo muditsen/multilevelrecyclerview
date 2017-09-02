@@ -20,13 +20,9 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
 
     Context mContext;
 
-    private boolean isExpanded = false;
+    private boolean isExpanded = false, accordion = false;
 
-    private boolean accordion = false;
-
-    private int prevClickedPosition = -1;
-
-    private int numberOfItemsAdded = 0;
+    private int prevClickedPosition = -1, numberOfItemsAdded = 0;
 
     MultiLevelAdapter mMultiLevelAdapter;
 
@@ -68,6 +64,12 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
         setItemAnimator(new DefaultItemAnimator());
     }
 
+    public void removeItemClickListeners() {
+        if (recyclerItemClickListener != null) {
+            removeOnItemTouchListener(recyclerItemClickListener);
+        }
+    }
+
     @Override
     public void setItemAnimator(ItemAnimator animator) {
         super.setItemAnimator(animator);
@@ -84,24 +86,20 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
 
 
     public void removeAllChildren(List<RecyclerViewItem> list) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).isExpanded()) {
-                removeAllChildren(list.get(i).getChildren());
-                removePrevItems(mMultiLevelAdapter.getRecyclerViewItemList(), list.get(i).getPosition(), list.get(i).getChildren().size());
+        for (RecyclerViewItem i : list) {
+            if (i.isExpanded()) {
+                i.setExpanded(false);
+                removeAllChildren(i.getChildren());
+                removePrevItems(mMultiLevelAdapter.getRecyclerViewItemList(), i.getPosition(), i.getChildren().size());
             }
         }
     }
 
     private int getExpandedPosition(int level) {
-
         List<RecyclerViewItem> adapterList = mMultiLevelAdapter.getRecyclerViewItemList();
-        for (int i = 0; i < adapterList.size(); i++) {
-
-            if (level == adapterList.get(i).getLevel()) {
-
-                if (adapterList.get(i).isExpanded()) {
-                    return i;
-                }
+        for (RecyclerViewItem i : adapterList) {
+            if (level == i.getLevel() && i.isExpanded()) {
+                return adapterList.indexOf(i);
             }
         }
 
@@ -111,8 +109,8 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
     private int getItemsToBeRemoved(int level) {
         List<RecyclerViewItem> adapterList = mMultiLevelAdapter.getRecyclerViewItemList();
         int itemsToRemove = 0;
-        for (int j = 0; j < adapterList.size(); j++) {
-            if (level < adapterList.get(j).getLevel()) {
+        for (RecyclerViewItem i : adapterList) {
+            if (level < i.getLevel()) {
                 itemsToRemove++;
             }
         }
@@ -122,6 +120,7 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
 
     @Override
     public void onItemClick(View view, RecyclerViewItem clickedItem, int position) {
+        if (position == -1) return;
 
         List<RecyclerViewItem> adapterList = mMultiLevelAdapter.getRecyclerViewItemList();
 
@@ -136,9 +135,7 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
                 return;
             }
 
-            int i = getExpandedPosition(clickedItem.getLevel());
-
-            int itemsToRemove = getItemsToBeRemoved(clickedItem.getLevel());
+            int i = getExpandedPosition(clickedItem.getLevel()), itemsToRemove = getItemsToBeRemoved(clickedItem.getLevel());
 
             if (i != -1) {
                 removePrevItems(adapterList, i, itemsToRemove);
@@ -154,7 +151,6 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
             }
 
         }
-
 
         if (clickedItem.isExpanded()) {
             clickedItem.setExpanded(false);
@@ -187,8 +183,9 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
     }
 
     public void refreshPosition() {
-        for (int i = 0; i < mMultiLevelAdapter.getRecyclerViewItemList().size(); i++) {
-            mMultiLevelAdapter.getRecyclerViewItemList().get(i).setPosition(i);
+        int position = 0;
+        for (RecyclerViewItem i : mMultiLevelAdapter.getRecyclerViewItemList()) {
+            i.setPosition(position++);
         }
     }
 
@@ -238,11 +235,11 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
 
         private OnRecyclerItemClickListener onItemClick;
 
-        public void setOnItemClick(OnRecyclerItemClickListener onItemClick) {
+        void setOnItemClick(OnRecyclerItemClickListener onItemClick) {
             this.onItemClick = onItemClick;
         }
 
-        public RecyclerItemClickListener(Context context) {
+        RecyclerItemClickListener(Context context) {
 
             mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 @Override
