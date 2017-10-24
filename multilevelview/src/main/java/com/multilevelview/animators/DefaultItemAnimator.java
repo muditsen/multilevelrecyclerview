@@ -15,7 +15,6 @@
  */
 package com.multilevelview.animators;
 
-import android.support.v4.animation.AnimatorCompatHelper;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
@@ -504,7 +503,7 @@ public class DefaultItemAnimator extends SimpleItemAnimator {
     }
 
     private void resetAnimation(ViewHolder holder) {
-        AnimatorCompatHelper.clearInterpolator(holder.itemView);
+        holder.itemView.animate().setInterpolator(new ValueAnimator().getInterpolator());
         endAnimation(holder);
     }
 
