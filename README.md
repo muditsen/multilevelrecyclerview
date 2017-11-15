@@ -54,6 +54,11 @@ protected void onCreate(Bundle savedInstanceState) {
     MyAdapter myAdapter = new MyAdapter(this, itemList, multiLevelRecyclerView);
 
     multiLevelRecyclerView.setAdapter(myAdapter);
+
+
+    //If you want to already opened Multi-RecyclerView just call openTill where is parameter is
+    // position to corresponding each level.
+    multiLevelRecyclerView.openTill(0,1,2,3);
 }
 
 private List<?> recursivePopulateFakeData(int levelNumber, int depth) {
@@ -91,7 +96,7 @@ private List<?> recursivePopulateFakeData(int levelNumber, int depth) {
 public class MyAdapter extends MultiLevelAdapter { ... }
 ```
 
-The accordion feature can be enabled by adding the following line of code:
+The Accordion feature can be enabled by adding the following line of code:
 ```java
 multiLevelRecyclerView.setAccordion(true);
 ```
@@ -106,6 +111,12 @@ If you want different click events on one item e.g.: one click event on the item
 ```java
 multiLevelRecyclerView.removeItemClickListeners();
 ```
+
+```
+Now you do not have to remove the removeItemClickListeners() instead call setToggleItemOnClick to TRUE or FALSE
+accordingly if you want to expand or collapse on click of that item.
+```
+
 
 This removes the click event on the whole item and then you're able to set different click events on your views in the `ViewHolder` class in your `MyAdapter.java` file like so:
 ```java
@@ -135,18 +146,18 @@ private class Holder extends RecyclerView.ViewHolder {
         });
 
         //set click listener on LinearLayout because the click area is bigger than the ImageView
-        mExpandButton.setOnClickListener(new View.OnClickListener() {
+         mExpandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // set click event on expand button here
-                mMultiLevelRecyclerView.onItemClick(v, mItem, getAdapterPosition());
+                mMultiLevelRecyclerView.toggleItemsGroup(getAdapterPosition());
                 // rotate the icon based on the current state
                 // but only here because otherwise we'd see the animation on expanded items too while scrolling
-                mExpandIcon.animate().rotation(mItem.isExpanded() ? -180 : 0).start();
+                mExpandIcon.animate().rotation(mListItems.get(getAdapterPosition()).isExpanded() ? -180 : 0).start();
 
                 Toast.makeText(mContext, String.format(Locale.ENGLISH, "Item at position %d is expanded: %s", getAdapterPosition(), mItem.isExpanded()), Toast.LENGTH_SHORT).show();
             }
-        });
+         });
 
         // If you save the expand state in a database and you want to expand the list on every start
         // then you might need the following code to expand the items

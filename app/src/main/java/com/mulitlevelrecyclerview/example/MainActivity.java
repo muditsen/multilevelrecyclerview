@@ -6,9 +6,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.mulitlevelrecyclerview.R;
 import com.multilevelview.MultiLevelRecyclerView;
+import com.multilevelview.OnRecyclerItemClickListener;
 import com.multilevelview.models.RecyclerViewItem;
 
 import java.util.ArrayList;
@@ -21,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        MultiLevelRecyclerView multiLevelRecyclerView = (MultiLevelRecyclerView) findViewById(R.id.rv_list);
+        final MultiLevelRecyclerView multiLevelRecyclerView = (MultiLevelRecyclerView) findViewById(R.id.rv_list);
         multiLevelRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<Item> itemList = (List<Item>) recursivePopulateFakeData(0, 12);
@@ -32,7 +36,14 @@ public class MainActivity extends AppCompatActivity {
         MyAdapter myAdapter = new MyAdapter(this, itemList, multiLevelRecyclerView);
 
         multiLevelRecyclerView.setAdapter(myAdapter);
-        multiLevelRecyclerView.removeItemClickListeners();
+
+        //If you are handling the click on your own then you can
+       // multiLevelRecyclerView.removeItemClickListeners();
+        multiLevelRecyclerView.setToggleItemOnClick(false);
+
+        multiLevelRecyclerView.setAccordion(false);
+
+        multiLevelRecyclerView.openTill(0,1,2,3);
     }
 
 

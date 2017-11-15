@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:foreground="?selectableItemBackground"
+    android:padding="16dp">
 
     <LinearLayout
         android:id="@+id/text_box"
@@ -18,14 +19,12 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ABCDEF"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="abcde"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -39,6 +38,7 @@
         <ImageView
             android:id="@+id/image_view"
             android:tint="#4e4e4e"
+            android:contentDescription="@null"
             android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
