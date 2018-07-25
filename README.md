@@ -4,30 +4,17 @@ This library is an extension of the `RecyclerView` class and behaves like the `E
 
 ## Prerequisites
 
-Add the following to your `build.gradle` file in your project folder:
-```gradle
-allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url 'https://dl.bintray.com/iammuditsen/maven/'
-        }
-    }
-}
-```
-**Note: Only add the** `maven { url 'https://dl.bintray.com/iammuditsen/maven/' }` **tag without the parent tags.**
 
-Then add the following dependency in your `build.gradle` file in your app folder:
+```
+Add the following dependency in your `build.gradle` file in your app folder:
 
 ```gradle
 dependencies {
-    compile 'muditse.android:multilevelexpandview:1.1'
+    implementation ''com.muditsen.multilevelrecyclerview:multilevelview:1.0.0''
 }
  ```
-OR
-include the `multilevelview` module into your project after downloading it.
-
-
+ 
+ 
 ## Usage
 Put the following snippet in your layout file:
 ```xml
