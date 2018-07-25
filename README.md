@@ -8,7 +8,6 @@ This library is an extension of the `RecyclerView` class and behaves like the `E
 ```
 Add the following dependency in your `build.gradle` file in your app folder:
 
-```gradle
 dependencies {
     implementation ''com.muditsen.multilevelrecyclerview:multilevelview:1.0.0''
 }
