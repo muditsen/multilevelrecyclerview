@@ -1,5 +1,5 @@
 # MultiLevel Expandable RecyclerView
-This library is an extension of the `RecyclerView` class and behaves like the `ExpandableListView` widget but with more than just 2-levels.
+This library is an extension of the `RecyclerView` class and to make it behave like the `ExpandableListView` widget but with more than just 2-levels.
 
 
 ## Prerequisites
