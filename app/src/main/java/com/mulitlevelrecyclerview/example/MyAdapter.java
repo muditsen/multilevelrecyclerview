@@ -38,7 +38,11 @@ public class MyAdapter extends MultiLevelAdapter {
 
     private void setExpandButton(ImageView expandButton, boolean isExpanded) {
         // set the icon based on the current state
-        expandButton.setImageResource(isExpanded ? R.drawable.ic_keyboard_arrow_down_black_24dp : R.drawable.ic_keyboard_arrow_up_black_24dp);
+        //change state without duration because we don't need animation while scrolling
+        if(!isExpanded)
+            expandButton.animate().setDuration(0).rotation(0F).start();
+        else
+            expandButton.animate().setDuration(0).rotation(-180F).start();
     }
 
     @Override
@@ -112,8 +116,8 @@ public class MyAdapter extends MultiLevelAdapter {
                     // set click event on expand button here
                     mMultiLevelRecyclerView.toggleItemsGroup(getAdapterPosition());
                     // rotate the icon based on the current state
-                    // but only here because otherwise we'd see the animation on expanded items too while scrolling
-                    mExpandIcon.animate().rotation(mListItems.get(getAdapterPosition()).isExpanded() ? -180 : 0).start();
+                    // animate with duration
+                    mExpandIcon.animate().setDuration(200).rotation(mListItems.get(getAdapterPosition()).isExpanded() ? -180 : 0).start();
 
                     Toast.makeText(mContext, String.format(Locale.ENGLISH, "Item at position %d is expanded: %s", getAdapterPosition(), mItem.isExpanded()), Toast.LENGTH_SHORT).show();
                 }
