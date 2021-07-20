@@ -153,46 +153,48 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
 
         List<RecyclerViewItem> adapterList = mMultiLevelAdapter.getRecyclerViewItemList();
 
-        RecyclerViewItem clickedItem = adapterList.get(position);
+        if(position < adapterList.size()){
+            RecyclerViewItem clickedItem = adapterList.get(position);
 
-        if (accordion) {
-            if (clickedItem.isExpanded()) {
-                clickedItem.setExpanded(false);
-                removeAllChildren(clickedItem.getChildren());
-                removePrevItems(adapterList, position, clickedItem.getChildren().size());
-                prevClickedPosition = -1;
-                numberOfItemsAdded = 0;
+            if (accordion) {
+                if (clickedItem.isExpanded()) {
+                    clickedItem.setExpanded(false);
+                    removeAllChildren(clickedItem.getChildren());
+                    removePrevItems(adapterList, position, clickedItem.getChildren().size());
+                    prevClickedPosition = -1;
+                    numberOfItemsAdded = 0;
+                }else{
+                    int i = getExpandedPosition(clickedItem.getLevel());
+                    int itemsToRemove = getItemsToBeRemoved(clickedItem.getLevel());
+
+                    if (i != -1) {
+                        removePrevItems(adapterList, i, itemsToRemove);
+
+                        adapterList.get(i).setExpanded(false);
+
+                        if (clickedItem.getPosition() > adapterList.get(i).getPosition()) {
+                            addItems(clickedItem, adapterList, position - itemsToRemove);
+                        } else {
+                            addItems(clickedItem, adapterList, position);
+                        }
+                    }else{
+                        addItems(clickedItem, adapterList, position);
+                    }
+                }
             }else{
-                int i = getExpandedPosition(clickedItem.getLevel());
-                int itemsToRemove = getItemsToBeRemoved(clickedItem.getLevel());
-
-                if (i != -1) {
-                    removePrevItems(adapterList, i, itemsToRemove);
-
-                    adapterList.get(i).setExpanded(false);
-
-                    if (clickedItem.getPosition() > adapterList.get(i).getPosition()) {
-                        addItems(clickedItem, adapterList, position - itemsToRemove);
+                if (clickedItem.isExpanded()) {
+                    clickedItem.setExpanded(false);
+                    removeAllChildren(clickedItem.getChildren());
+                    removePrevItems(adapterList, position, clickedItem.getChildren().size());
+                    prevClickedPosition = -1;
+                    numberOfItemsAdded = 0;
+                } else {
+                    if (clickedItem.isExpanded()) {
+                        removePrevItems(adapterList, prevClickedPosition, numberOfItemsAdded);
+                        addItems(clickedItem, adapterList, clickedItem.getPosition());
                     } else {
                         addItems(clickedItem, adapterList, position);
                     }
-                }else{
-                    addItems(clickedItem, adapterList, position);
-                }
-            }
-        }else{
-            if (clickedItem.isExpanded()) {
-                clickedItem.setExpanded(false);
-                removeAllChildren(clickedItem.getChildren());
-                removePrevItems(adapterList, position, clickedItem.getChildren().size());
-                prevClickedPosition = -1;
-                numberOfItemsAdded = 0;
-            } else {
-                if (clickedItem.isExpanded()) {
-                    removePrevItems(adapterList, prevClickedPosition, numberOfItemsAdded);
-                    addItems(clickedItem, adapterList, clickedItem.getPosition());
-                } else {
-                    addItems(clickedItem, adapterList, position);
                 }
             }
         }
@@ -210,7 +212,14 @@ public class MultiLevelRecyclerView extends RecyclerView implements OnRecyclerIt
 
     private void removePrevItems(List<RecyclerViewItem> tempList, int position, int numberOfItemsAdded) {
         for (int i = 0; i < numberOfItemsAdded; i++) {
-            tempList.remove(position + 1);
+            if((position + 1) <= (tempList.size() - 1)){
+                tempList.get(position + 1).setExpanded(false);
+                tempList.remove(position + 1);
+            }else{
+                tempList.get(position).setExpanded(false);
+                tempList.remove(position);
+            }
+
         }
         isExpanded = false;
         mMultiLevelAdapter.setRecyclerViewItemList(tempList);
